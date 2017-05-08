@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.NoticeUserMapper" >
+  <resultMap id="BaseResultMap" type="po.NoticeUser" >
+    <id column="noticeid" property="noticeid" jdbcType="DECIMAL" />
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="isread" property="isread" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    noticeid, userid, isread
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="po.NoticeUserKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_notice_user
+    where noticeid = #{noticeid,jdbcType=DECIMAL}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="po.NoticeUserKey" >
+    delete from t_notice_user
+    where noticeid = #{noticeid,jdbcType=DECIMAL}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="po.NoticeUser" >
+    insert into t_notice_user (noticeid, userid, isread
+      )
+    values (#{noticeid,jdbcType=DECIMAL}, #{userid,jdbcType=VARCHAR}, #{isread,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="po.NoticeUser" >
+    insert into t_notice_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeid != null" >
+        noticeid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="isread != null" >
+        isread,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeid != null" >
+        #{noticeid,jdbcType=DECIMAL},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="isread != null" >
+        #{isread,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="po.NoticeUser" >
+    update t_notice_user
+    <set >
+      <if test="isread != null" >
+        isread = #{isread,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where noticeid = #{noticeid,jdbcType=DECIMAL}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="po.NoticeUser" >
+    update t_notice_user
+    set isread = #{isread,jdbcType=DECIMAL}
+    where noticeid = #{noticeid,jdbcType=DECIMAL}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

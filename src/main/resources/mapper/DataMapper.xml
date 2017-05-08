@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.DataMapper" >
+  <resultMap id="BaseResultMap" type="po.Data" >
+    <id column="dataid" property="dataid" jdbcType="DECIMAL" />
+    <result column="dataname" property="dataname" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="DECIMAL" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="dropdel" property="dropdel" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dataid, dataname, pid, addtime, updateuser, updatetime, dropdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_data
+    where dataid = #{dataid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_data
+    where dataid = #{dataid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="po.Data" >
+    insert into t_data (dataid, dataname, pid, 
+      addtime, updateuser, updatetime, 
+      dropdel)
+    values (#{dataid,jdbcType=DECIMAL}, #{dataname,jdbcType=VARCHAR}, #{pid,jdbcType=DECIMAL}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{updateuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{dropdel,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="po.Data" >
+    insert into t_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        dataid,
+      </if>
+      <if test="dataname != null" >
+        dataname,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="updateuser != null" >
+        updateuser,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="dropdel != null" >
+        dropdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        #{dataid,jdbcType=DECIMAL},
+      </if>
+      <if test="dataname != null" >
+        #{dataname,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dropdel != null" >
+        #{dropdel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="po.Data" >
+    update t_data
+    <set >
+      <if test="dataname != null" >
+        dataname = #{dataname,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dropdel != null" >
+        dropdel = #{dropdel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where dataid = #{dataid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="po.Data" >
+    update t_data
+    set dataname = #{dataname,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=DECIMAL},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      dropdel = #{dropdel,jdbcType=DECIMAL}
+    where dataid = #{dataid,jdbcType=DECIMAL}
+  </update>
+</mapper>

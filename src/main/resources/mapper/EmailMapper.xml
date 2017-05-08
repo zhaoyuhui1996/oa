@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.EmailMapper" >
+  <resultMap id="BaseResultMap" type="po.Email" >
+    <id column="emailid" property="emailid" jdbcType="DECIMAL" />
+    <result column="sendid" property="sendid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="senddate" property="senddate" jdbcType="TIMESTAMP" />
+    <result column="isfile" property="isfile" jdbcType="DECIMAL" />
+    <result column="emailmode" property="emailmode" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="po.Email" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    emailid, sendid, title, senddate, isfile, emailmode
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_email
+    where emailid = #{emailid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_email
+    where emailid = #{emailid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="po.Email" >
+    insert into t_email (emailid, sendid, title, 
+      senddate, isfile, emailmode, 
+      content)
+    values (#{emailid,jdbcType=DECIMAL}, #{sendid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{senddate,jdbcType=TIMESTAMP}, #{isfile,jdbcType=DECIMAL}, #{emailmode,jdbcType=DECIMAL}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="po.Email" >
+    insert into t_email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emailid != null" >
+        emailid,
+      </if>
+      <if test="sendid != null" >
+        sendid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="senddate != null" >
+        senddate,
+      </if>
+      <if test="isfile != null" >
+        isfile,
+      </if>
+      <if test="emailmode != null" >
+        emailmode,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emailid != null" >
+        #{emailid,jdbcType=DECIMAL},
+      </if>
+      <if test="sendid != null" >
+        #{sendid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null" >
+        #{senddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isfile != null" >
+        #{isfile,jdbcType=DECIMAL},
+      </if>
+      <if test="emailmode != null" >
+        #{emailmode,jdbcType=DECIMAL},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="po.Email" >
+    update t_email
+    <set >
+      <if test="sendid != null" >
+        sendid = #{sendid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null" >
+        senddate = #{senddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isfile != null" >
+        isfile = #{isfile,jdbcType=DECIMAL},
+      </if>
+      <if test="emailmode != null" >
+        emailmode = #{emailmode,jdbcType=DECIMAL},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where emailid = #{emailid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="po.Email" >
+    update t_email
+    set sendid = #{sendid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      senddate = #{senddate,jdbcType=TIMESTAMP},
+      isfile = #{isfile,jdbcType=DECIMAL},
+      emailmode = #{emailmode,jdbcType=DECIMAL},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where emailid = #{emailid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="po.Email" >
+    update t_email
+    set sendid = #{sendid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      senddate = #{senddate,jdbcType=TIMESTAMP},
+      isfile = #{isfile,jdbcType=DECIMAL},
+      emailmode = #{emailmode,jdbcType=DECIMAL}
+    where emailid = #{emailid,jdbcType=DECIMAL}
+  </update>
+</mapper>

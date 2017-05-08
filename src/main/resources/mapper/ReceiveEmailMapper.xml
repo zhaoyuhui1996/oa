@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.ReceiveEmailMapper" >
+  <resultMap id="BaseResultMap" type="po.ReceiveEmail" >
+    <id column="receiveuserid" property="receiveuserid" jdbcType="VARCHAR" />
+    <result column="emailid" property="emailid" jdbcType="DECIMAL" />
+    <result column="isread" property="isread" jdbcType="DECIMAL" />
+    <result column="isdel" property="isdel" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    receiveuserid, emailid, isread, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_receive_email
+    where receiveuserid = #{receiveuserid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_receive_email
+    where receiveuserid = #{receiveuserid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="po.ReceiveEmail" >
+    insert into t_receive_email (receiveuserid, emailid, isread, 
+      isdel)
+    values (#{receiveuserid,jdbcType=VARCHAR}, #{emailid,jdbcType=DECIMAL}, #{isread,jdbcType=DECIMAL}, 
+      #{isdel,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="po.ReceiveEmail" >
+    insert into t_receive_email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="receiveuserid != null" >
+        receiveuserid,
+      </if>
+      <if test="emailid != null" >
+        emailid,
+      </if>
+      <if test="isread != null" >
+        isread,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="receiveuserid != null" >
+        #{receiveuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="emailid != null" >
+        #{emailid,jdbcType=DECIMAL},
+      </if>
+      <if test="isread != null" >
+        #{isread,jdbcType=DECIMAL},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="po.ReceiveEmail" >
+    update t_receive_email
+    <set >
+      <if test="emailid != null" >
+        emailid = #{emailid,jdbcType=DECIMAL},
+      </if>
+      <if test="isread != null" >
+        isread = #{isread,jdbcType=DECIMAL},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where receiveuserid = #{receiveuserid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="po.ReceiveEmail" >
+    update t_receive_email
+    set emailid = #{emailid,jdbcType=DECIMAL},
+      isread = #{isread,jdbcType=DECIMAL},
+      isdel = #{isdel,jdbcType=DECIMAL}
+    where receiveuserid = #{receiveuserid,jdbcType=VARCHAR}
+  </update>
+</mapper>

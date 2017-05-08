@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.EmailFileMapper" >
+  <resultMap id="BaseResultMap" type="po.EmailFile" >
+    <id column="fileid" property="fileid" jdbcType="DECIMAL" />
+    <result column="emailid" property="emailid" jdbcType="DECIMAL" />
+    <result column="oldname" property="oldname" jdbcType="VARCHAR" />
+    <result column="newname" property="newname" jdbcType="VARCHAR" />
+    <result column="isdel" property="isdel" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fileid, emailid, oldname, newname, isdel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_email_file
+    where fileid = #{fileid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_email_file
+    where fileid = #{fileid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="po.EmailFile" >
+    insert into t_email_file (fileid, emailid, oldname, 
+      newname, isdel)
+    values (#{fileid,jdbcType=DECIMAL}, #{emailid,jdbcType=DECIMAL}, #{oldname,jdbcType=VARCHAR}, 
+      #{newname,jdbcType=VARCHAR}, #{isdel,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="po.EmailFile" >
+    insert into t_email_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileid != null" >
+        fileid,
+      </if>
+      <if test="emailid != null" >
+        emailid,
+      </if>
+      <if test="oldname != null" >
+        oldname,
+      </if>
+      <if test="newname != null" >
+        newname,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileid != null" >
+        #{fileid,jdbcType=DECIMAL},
+      </if>
+      <if test="emailid != null" >
+        #{emailid,jdbcType=DECIMAL},
+      </if>
+      <if test="oldname != null" >
+        #{oldname,jdbcType=VARCHAR},
+      </if>
+      <if test="newname != null" >
+        #{newname,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="po.EmailFile" >
+    update t_email_file
+    <set >
+      <if test="emailid != null" >
+        emailid = #{emailid,jdbcType=DECIMAL},
+      </if>
+      <if test="oldname != null" >
+        oldname = #{oldname,jdbcType=VARCHAR},
+      </if>
+      <if test="newname != null" >
+        newname = #{newname,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where fileid = #{fileid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="po.EmailFile" >
+    update t_email_file
+    set emailid = #{emailid,jdbcType=DECIMAL},
+      oldname = #{oldname,jdbcType=VARCHAR},
+      newname = #{newname,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=DECIMAL}
+    where fileid = #{fileid,jdbcType=DECIMAL}
+  </update>
+</mapper>

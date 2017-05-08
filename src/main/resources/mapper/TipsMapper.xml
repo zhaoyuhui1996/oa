@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.TipsMapper" >
+  <resultMap id="BaseResultMap" type="po.Tips" >
+    <result column="showtips" property="showtips" jdbcType="CHAR" />
+    <result column="tipsdate" property="tipsdate" jdbcType="DECIMAL" />
+    <result column="showemail" property="showemail" jdbcType="CHAR" />
+    <result column="shownotice" property="shownotice" jdbcType="CHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="po.Tips" >
+    insert into t_tips (showtips, tipsdate, showemail, 
+      shownotice, userid)
+    values (#{showtips,jdbcType=CHAR}, #{tipsdate,jdbcType=DECIMAL}, #{showemail,jdbcType=CHAR}, 
+      #{shownotice,jdbcType=CHAR}, #{userid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="po.Tips" >
+    insert into t_tips
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="showtips != null" >
+        showtips,
+      </if>
+      <if test="tipsdate != null" >
+        tipsdate,
+      </if>
+      <if test="showemail != null" >
+        showemail,
+      </if>
+      <if test="shownotice != null" >
+        shownotice,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="showtips != null" >
+        #{showtips,jdbcType=CHAR},
+      </if>
+      <if test="tipsdate != null" >
+        #{tipsdate,jdbcType=DECIMAL},
+      </if>
+      <if test="showemail != null" >
+        #{showemail,jdbcType=CHAR},
+      </if>
+      <if test="shownotice != null" >
+        #{shownotice,jdbcType=CHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
